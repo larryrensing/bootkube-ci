@@ -1,6 +1,6 @@
 ### PREPARE THE ENVIRONMENT:
 export PROXY_ENABLED=true                     ### ENABLE PROXY SETTINGS        ###
-export BOOTKUBE_DIR='/home/ubuntu'            ### BOOTKUBE-CI DIRECTORY        ###
+export BOOTKUBE_DIR='/root'            ### BOOTKUBE-CI DIRECTORY        ###
 export TMPDIR='/tmp/download'                 ### TEMP DOWNLOADS GO HERE       ###
 export CNI_VERSION=v0.6.0                     ### CNI VERSION                  ###
 export HELM_VERSION=v2.6.1                    ### HELM VERSION                 ###
@@ -14,7 +14,7 @@ export ETCD_SVC_ADDR='10.96.232.136'          ### ETCD CLUSTER IP ADDRESS      #
 export ETCD_SVC_PORT='6666'                   ### ETCD SERVICE PORT            ###
 export ETCD_SVC_PEER='6667'                   ### ETCD SERVICE PEER PORT       ###
 export KUBE_SVC_PORT='8443'                   ### PORT FOR KUBE API ENDPOINT   ###
-export KUBE_HW='ens3'                         ### MODIFY FOR IFCONFIG HW INT   ###
+export KUBE_HW='eth0'                         ### MODIFY FOR IFCONFIG HW INT   ###
 export KUBE_DNS_API='kubernetes.default'      ### DNS API ENDPOINT             ###
 export NSERVER01='10.96.0.10'                 ### NEEDS TO BE CLUSTER DNS IP   ###
 export NSERVER02='8.8.4.4'                    ### THE PRIMARY DNS SERVER       ###
@@ -24,3 +24,5 @@ export NSEARCH02='jinkit.com'                 ### MODIFY FOR YOUR ENVIRONMENT  #
 export KUBE_ARCH='amd64'                      ### MODIFY FOR YOUR ARCHITECTURE ###
 export KUBE_IMAGE='quay.io/coreos/hyperkube'  ### MODIFY FOR YOUR ENVIRONMENT  ###
 export KUBE_IP=$(ip a s dev $KUBE_HW | awk '/inet /{gsub("/.*", "");print $2}')
+export KUBE_MASTER=44.128.124.128
+export KUBE_MASTER=44.128.124.128

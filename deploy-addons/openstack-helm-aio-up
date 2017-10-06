@@ -172,11 +172,13 @@ done
 
 ### BRING UP THE DATABASE:
 helm install --name=mariadb $HELM_REPO/mariadb --namespace=openstack
+  --set pod.replicas.server=1
 
 ### BRING UP THE INFRASTRUCTURE COMPONENTS:
 helm install --name=memcached $HELM_REPO/memcached --namespace=openstack
 helm install --name=etcd-rabbitmq $HELM_REPO/etcd --namespace=openstack
 helm install --name=rabbitmq $HELM_REPO/rabbitmq --namespace=openstack
+  --set pod.replicas.server=1
 helm install --name=ingress $HELM_REPO/ingress --namespace=openstack
 helm install --name=libvirt $HELM_REPO/libvirt --namespace=openstack
 helm install --name=openvswitch $HELM_REPO/openvswitch --namespace=openstack
@@ -213,25 +215,14 @@ helm install --namespace=openstack --name=glance $HELM_REPO/glance \
 helm install --namespace=openstack --name=heat $HELM_REPO/heat
 
 ### BRING UP NEUTRON:
-helm install --namespace=openstack --name=neutron $HELM_REPO/neutron \
-  --set pod.replicas.server=2
+  helm install --namespace=openstack $HELM_REPO/nova --name=nova \
+      --set conf.nova.libvirt.virt_type=qemu
 
-### BRING UP NOVA:
-helm install --namespace=openstack --name=nova $HELM_REPO/nova \
-  --set pod.replicas.api_metadata=2 \
-  --set pod.replicas.osapi=2 \
-  --set pod.replicas.conductor=2 \
-  --set pod.replicas.consoleauth=2 \
-  --set pod.replicas.scheduler=2 \
-  --set pod.replicas.novncproxy=2
-
+  helm install --namespace=openstack $HELM_REPO/neutron --name=neutron \
+      --values=../openstack-helm/tools/overrides/mvp/neutron-ovs.yaml
 
 ### BRING UP CINDER:
 helm install --namespace=openstack --name=cinder $HELM_REPO/cinder \
   --set pod.replicas.api=2
 
 # Remove the exit statement if you wish any of the following Charts
-Exit
-helm install --name=barbican local/barbican --namespace=openstack
-helm install --name=mistral local/mistral --namespace=openstack
-helm install --name=magnum local/magnum --namespace=openstack
