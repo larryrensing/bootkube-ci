@@ -3,3 +3,4 @@ log/
 backups/
 deploy-sdn/calico/calico*bootkube*
 deploy-addons/demo/*mvp*
+deploy-node/nodes
